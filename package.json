@@ -10,16 +10,23 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.1",
     "@react-three/drei": "^9.115.0",
     "@react-three/fiber": "^8.17.10",
+    "dat.gui": "^0.7.9",
+    "gsap": "^3.12.5",
     "leva": "^0.9.35",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-multi-carousel": "^2.8.5",
+    "react-parallax-tilt": "^1.7.253",
     "react-responsive": "^10.0.0",
+    "split-type": "^0.3.4",
     "three": "^0.170.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
+    "@react-three/eslint-plugin": "^0.1.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
