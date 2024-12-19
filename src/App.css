@@ -3,3 +3,100 @@
   padding: 0;
   box-sizing: border-box;
 }
+.black-gradient {
+  background: linear-gradient(179.4deg, rgb(2 2 4) -16.9%, rgb(31 2 41) 119.9%);
+}
+
+.animated-bg {
+  background: linear-gradient(
+    -15deg,
+    #00000000,
+    #16024f,
+    #000000,
+    #000000,
+    #000000
+  );
+  background-size: 400% 400%;
+  animation: gradient 5s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.dark-bg {
+  background: radial-gradient(
+    circle at -57.9% 80.8%,
+    rgb(50, 50, 50) 15%,
+    rgb(0, 0, 0) 99.4%
+  );
+}
+
+.testimonial-card {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(13.5px);
+  -webkit-backdrop-filter: blur(13.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.contact-us-card {
+  background: rgb(114 114 114 / 30%);
+  box-shadow: 0 14px 51px 0 rgb(30 38 144 / 37%);
+  backdrop-filter: blur(13.5px);
+  -webkit-backdrop-filter: blur(13.5px);
+  border-radius: 10px;
+  border: 2px solid rgb(255 236 236 / 25%);
+}
+
+.bg-green-circle {
+  -webkit-box-shadow: -2.5px -0.5px 16.5px 30.5px rgba(168, 235, 117, 0.92);
+  -moz-box-shadow: -2.5px -0.5px 16.5px 30.5px rgba(168, 235, 117, 0.92);
+  box-shadow: -2.5px -0.5px 16.5px 30.5px rgba(168, 235, 117, 0.92);
+}
+
+.infinity-scroll-animation {
+  animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+  to {
+    transform: translateX(-40rem);
+  }
+}
+
+.bounce {
+  animation: bounce 2s ease infinite;
+}
+@keyframes bounce {
+  70% {
+    transform: translateY(0%);
+  }
+  80% {
+    transform: translateY(-15%);
+  }
+  90% {
+    transform: translateY(0%);
+  }
+  95% {
+    transform: translateY(-7%);
+  }
+  97% {
+    transform: translateY(0%);
+  }
+  99% {
+    transform: translateY(-3%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
