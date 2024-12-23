@@ -1,4 +1,3 @@
-import React from "react";
 import { StackImg } from "../data/StackData";
 import Tilt from "react-parallax-tilt";
 
