@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
-import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
+import { GLTF } from "three-stdlib";
 import { useFrame } from "@react-three/fiber";
 
 type GLTFResult = GLTF & {
@@ -30,9 +30,9 @@ type SpaceShipProps = {
 } & JSX.IntrinsicElements["group"];
 
 export default function SpaceShip({ animable, ...props }: SpaceShipProps) {
-  const { nodes, materials } = useGLTF<GLTFResult>(
+  const { nodes, materials } = useGLTF(
     "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/low-poly-spaceship/model.gltf"
-  );
+  ) as GLTFResult;
   const ref = useRef<THREE.Group>(null);
 
   useFrame(() => {

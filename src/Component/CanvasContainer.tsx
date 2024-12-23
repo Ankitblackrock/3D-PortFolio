@@ -84,7 +84,7 @@ const CanvasContainer = ({
         },
       });
 
-      sections.forEach((section, index) => {
+      sections.forEach((_, index) => {
         const direction = index % 2 === 0 ? -60 : 20;
         const yDirection = index % 2 === 0 ? 0 : 0.9;
         timeline.to(animable, {
