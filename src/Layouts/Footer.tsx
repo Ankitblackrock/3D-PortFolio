@@ -17,7 +17,7 @@ const Footer = () => {
     <footer className="bg-black px-7 py-12 section-six sticky z-10">
       <div className="flex flex-col items-center mb-8">
         <img
-          src="/public/images/angle-double-up.svg"
+          src="/dist/images/angle-double-up.svg"
           alt="star"
           width={60}
           className="cursor-pointer bounce"
@@ -27,21 +27,13 @@ const Footer = () => {
       </div>
       <div className="flex items-center w-1/2">
         <a href="/" className="cursor-pointer">
-          <img src="/public/images/social/github.svg" alt="github" width={30} />
+          <img src="/dist/images/social/github.svg" alt="github" width={30} />
         </a>
         <a href="/" className="cursor-pointer">
-          <img
-            src="/public/images/social/linkdin.svg"
-            alt="linkdin"
-            width={30}
-          />
+          <img src="/dist/images/social/linkdin.svg" alt="linkdin" width={30} />
         </a>
         <a href="/" className="cursor-pointer">
-          <img
-            src="/public/images/social/twitter.svg"
-            alt="twitter"
-            width={30}
-          />
+          <img src="/dist/images/social/twitter.svg" alt="twitter" width={30} />
         </a>
       </div>
     </footer>
