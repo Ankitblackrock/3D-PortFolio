@@ -25,7 +25,7 @@ function Project() {
                 molestias consequatur commodi, omnis tenetur aspernatur?
               </p>
               <a href={item.link} className="m-0">
-                <img src="/public/images/techImg/github.png" width={40} />
+                <img src="/dist/images/techImg/github.png" width={40} />
               </a>
             </div>
           </Tilt>
