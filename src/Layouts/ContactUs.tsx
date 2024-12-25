@@ -33,11 +33,7 @@ const ContactUs = () => {
       </h1>
       <div className="contact-us-card w-full md:w-[30rem] p-8 h-[36rem] flex flex-col items-center justify-center">
         {sucess ? (
-          <img
-            src="../../public/images/Animation - 1734373745789.gif"
-            alt="right"
-            width={200}
-          />
+          <img src="/images/Animation.gif" alt="right" width={200} />
         ) : (
           <>
             {" "}
