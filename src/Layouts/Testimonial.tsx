@@ -24,7 +24,7 @@ export const TestimonialCard = () => {
     <div className="w-[15rem] p-4 testimonial-card infinity-scroll-animation z-10">
       <div>
         <img
-          src="/public/images/comma.svg"
+          src="/images/comma.svg"
           alt="comma.svg"
           width={15}
           className="float-left"
@@ -36,16 +36,11 @@ export const TestimonialCard = () => {
           OHHHH Thanks god !!!! Finally there is someone making it for me to use
           on my projects. Love ya
         </p>
-        <img
-          src="/public/images/Star.svg"
-          alt="stars"
-          width={100}
-          className="mt-12"
-        />
+        <img src="/images/Star.svg" alt="stars" width={100} className="mt-12" />
       </div>
       <div className="mt-2 flex justify-between items-center p-4 gap-3">
         <img
-          src="/public/images/testimonial-picture/Ellipse 1.png"
+          src="/images/testimonial-picture/Ellipse 1.png"
           alt="Ellipse"
           width={60}
         />

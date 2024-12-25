@@ -13,7 +13,7 @@ const About = () => {
         <div className="grid grid-cols-1 gap-8 md:gap-0 md:grid-cols-2 mt-12 items-center relative overflow-hidden">
           <ScrollAnimationFromLeft>
             <img
-              src="/public/images/20240101_140940_11zon_magic (1).jpeg"
+              src="/images/myimage.jpeg"
               width={250}
               className="rounded-[2rem]"
             />
