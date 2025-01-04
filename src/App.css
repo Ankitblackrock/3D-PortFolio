@@ -2,9 +2,14 @@
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
+  touch-action: auto !important;
 }
 .black-gradient {
   background: linear-gradient(179.4deg, rgb(2 2 4) -16.9%, rgb(31 2 41) 119.9%);
+}
+
+.primary-color {
+  color: rgb(38, 49, 207);
 }
 
 .animated-bg {
@@ -35,7 +40,7 @@
 .dark-bg {
   background: radial-gradient(
     circle at -57.9% 80.8%,
-    rgb(50, 50, 50) 15%,
+    rgb(0, 0, 0) 15%,
     rgb(0, 0, 0) 99.4%
   );
 }
@@ -56,6 +61,12 @@
   -webkit-backdrop-filter: blur(13.5px);
   border-radius: 10px;
   border: 2px solid rgb(255 236 236 / 25%);
+}
+.glassbg {
+  background: rgb(114 114 114 / 30%);
+  box-shadow: 0 14px 51px 0 rgb(30 38 144 / 37%);
+  backdrop-filter: blur(13.5px);
+  -webkit-backdrop-filter: blur(13.5px);
 }
 
 .bg-green-circle {

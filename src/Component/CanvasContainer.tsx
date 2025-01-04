@@ -105,6 +105,7 @@ const CanvasContainer = ({
             position: cameraSettings.position, // Responsive camera position
             fov: cameraSettings.fov, // Responsive field of view
           }}
+          style={{ touchAction: "auto" }}
         >
           <Suspense fallback={null}>
             <Stage preset="rembrandt" intensity={2} environment="park">

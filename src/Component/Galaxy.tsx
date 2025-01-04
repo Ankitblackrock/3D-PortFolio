@@ -7,9 +7,9 @@ const Galaxy = () => {
   const pointsRef1 = useRef<THREE.Points>(null); // Reference for first points object
   const pointsRef2 = useRef<THREE.Points>(null); // Reference for new galaxy points object
 
+  const [mouseX, setMouseX] = useState(10); // State to track horizontal mouse position
   const [scale, setScale] = useState<number>(1);
 
-  // Parameters for galaxy generation
   const parameters = {
     count: 100000,
     radius: 5,
@@ -20,9 +20,9 @@ const Galaxy = () => {
     insideColor: "#FF604F",
     outsideColor: "#1B397C",
   };
+
   const particleCount = 100000;
 
-  // Particle positions and center of mass calculation
   const particles = useMemo(() => {
     const positions = new Float32Array(particleCount * 3);
     let sumX = 0,
@@ -56,7 +56,6 @@ const Galaxy = () => {
     return { positions, centerOfMass };
   }, [particleCount]);
 
-  // Galaxy attributes generation with color gradients
   const generateGalaxy = () => {
     const positions = new Float32Array(parameters.count * 3);
     const colors = new Float32Array(parameters.count * 3);
@@ -102,39 +101,49 @@ const Galaxy = () => {
 
   const galaxyAttributes = useMemo(generateGalaxy, []);
 
-  // Animation to rotate both galaxies
+  // Mouse movement tilt logic
   useFrame(() => {
+    const tiltFactor = mouseX * 0.5; // Adjust tilt sensitivity
     if (pointsRef1.current) {
       pointsRef1.current.rotation.y += 0.005;
+      pointsRef1.current.rotation.x = tiltFactor; // Horizontal tilt
     }
     if (pointsRef2.current) {
       pointsRef2.current.rotation.y += 0.005;
+      pointsRef2.current.rotation.x = tiltFactor; // Horizontal tilt
     }
   });
 
   useEffect(() => {
     const handleScroll = (event: WheelEvent) => {
       if (event.deltaY > 0) {
-        setScale((prevScale) => Math.min(prevScale * 1.05, 5)); // Increase scale
+        setScale((prevScale) => Math.min(prevScale * 1.05, 5));
       } else {
-        setScale((prevScale) => Math.max(prevScale / 1.05, 1)); // Decrease scale
+        setScale((prevScale) => Math.max(prevScale / 1.05, 1));
       }
     };
 
+    const handleMouseMove = (event: MouseEvent) => {
+      const normalizedX = (event.clientX / window.innerWidth) * 2 - 1;
+      setMouseX(normalizedX); // Update mouse X position
+    };
+
     window.addEventListener("wheel", handleScroll);
+    window.addEventListener("mousemove", handleMouseMove);
+
     return () => {
       window.removeEventListener("wheel", handleScroll);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
   return (
     <>
-      {/* Original galaxy particles */}
       <points
         ref={pointsRef1}
         position={[0, 0, 0]}
-        scale={3}
         rotation={[Math.PI / 4, 0, 0]}
+        scale={[3, 3, 3]}
       >
         <bufferGeometry attach="geometry">
           <bufferAttribute
@@ -151,13 +160,11 @@ const Galaxy = () => {
           sizeAttenuation
         />
       </points>
-
-      {/* New galaxy particles with color gradients */}
       <points
         ref={pointsRef2}
         position={[0, 0, 0]}
         rotation={[Math.PI / 4, 0, 0]}
-        scale={scale * 2.5}
+        scale={[scale * 2.5, scale * 2.5, scale * 2.5]}
       >
         <bufferGeometry attach="geometry">
           <bufferAttribute

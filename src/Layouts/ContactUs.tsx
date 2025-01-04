@@ -28,8 +28,8 @@ const ContactUs = () => {
 
   return (
     <section className="dark-bg z-10 px-7 py-12 section-five">
-      <h1 className="text-4xl font-bold text-white text-center mb-8">
-        CONTACT
+      <h1 className="text-4xl font-bold primary-color text-center mb-8">
+        CONTACT.
       </h1>
       <div className="contact-us-card w-full md:w-[30rem] p-8 h-[36rem] flex flex-col items-center justify-center">
         {sucess ? (

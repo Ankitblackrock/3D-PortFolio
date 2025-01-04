@@ -26,6 +26,7 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
       "react/no-unknown-property": "off",
+      "@typescript-eslint/no-explicit-any": "off",
     },
   }
 );

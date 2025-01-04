@@ -1,52 +1,49 @@
 import gsap from "gsap";
+import { TextPlugin } from "gsap/TextPlugin";
 import React, { useEffect, useRef } from "react";
-import SplitType from "split-type";
+
+// Register GSAP TextPlugin
+gsap.registerPlugin(TextPlugin);
 
 interface TypewriterTextProps {
-  text: string;
+  text: string[];
 }
 
-const TypeWritertext: React.FC<TypewriterTextProps> = ({ text }) => {
+const TypeWriterText: React.FC<TypewriterTextProps> = ({ text }) => {
   const textRef = useRef<HTMLDivElement | null>(null);
+  const cursorRef = useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
-    if (textRef.current) {
-      // Split text into characters
-      const splitText = new SplitType(textRef.current, { types: "chars" });
+    if (!textRef.current) return;
 
-      // Create a GSAP timeline for continuous animation
-      const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
+    const masterTl = gsap.timeline({ repeat: -1 });
 
-      // Animate each character one by one
-      tl.fromTo(
-        splitText.chars,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 0.05,
-          stagger: 0.2,
-          ease: "power1.inOut",
-        }
-      ).to(
-        splitText.chars,
-        {
-          opacity: 0,
-          duration: 0.05,
-          stagger: 0.05,
-          ease: "power1.inOut",
-        },
-        "+=1" // Optional delay before fading out
-      );
+    text.forEach((word) => {
+      const tl = gsap.timeline({ repeat: 1, yoyo: true, repeatDelay: 1 });
+      tl.to(textRef.current, {
+        duration: 2,
+        text: word,
+      });
+      masterTl.add(tl);
+    });
 
-      // Cleanup on unmount
-      return () => {
-        splitText.revert();
-        tl.kill();
-      };
+    // Blinking cursor effect
+    if (cursorRef.current) {
+      gsap.to(cursorRef.current, {
+        opacity: 0,
+        ease: "power2.inOut",
+        repeat: -1,
+        delay: 1.5,
+      });
     }
   }, [text]);
 
-  return <div ref={textRef}>{text}</div>;
+  return (
+    <div style={{ display: "inline-block", position: "relative" }}>
+      <div ref={textRef} style={{ display: "inline", whiteSpace: "nowrap" }} />
+      <span ref={cursorRef}>|</span>
+    </div>
+  );
 };
 
-export default TypeWritertext;
+export default TypeWriterText;
