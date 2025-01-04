@@ -16,6 +16,7 @@
     "dat.gui": "^0.7.9",
     "gsap": "^3.12.5",
     "leva": "^0.9.35",
+    "locomotive-scroll": "^5.0.0-beta.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-multi-carousel": "^2.8.5",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@eslint/js": "^9.13.0",
     "@react-three/eslint-plugin": "^0.1.1",
+    "@types/locomotive-scroll": "^4.1.4",
     "@types/node": "^22.10.2",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
