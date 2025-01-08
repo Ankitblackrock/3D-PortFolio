@@ -6,10 +6,10 @@ import useOnScrollShow from "../hooks/useOnScrollShow";
 function Project() {
   return (
     <section className="dark-bg z-10 px-7 py-12 section-three">
-      <h1 className="text-4xl font-bold primary-color text-center mb-8">
+      <h1 className="text-5xl text-center font-bold primary-color mb-8">
         PROJECTS.
       </h1>
-      <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-9">
+      <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-9 relative z-20">
         <ProjectMapComp />
       </div>
     </section>
@@ -47,7 +47,7 @@ export const ProjectMapComp = () => {
             glareEnable={true}
             className="p-5 md:w-[70%] w-full contact-us-card"
           >
-            <div className="flex flex-col justify-between items-start gap-4 ">
+            <div className="flex flex-col justify-between items-start gap-4">
               <div className="w-full h-[15rem] rounded-3xl animated-bg px-3 flex justify-center items-center">
                 <img
                   className="bg-white w-[98%] h-[13rem] rounded-2xl"

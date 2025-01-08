@@ -30,7 +30,7 @@ function TechStack() {
             <div
               id={id}
               key={id}
-              className="tech-card"
+              className="tech-card relative z-20"
               ref={(el) => (techCardRefs.current[index] = el)}
             >
               <h4 className="text-white text-center py-5 text-2xl font-medium">
@@ -39,7 +39,7 @@ function TechStack() {
               <div className="relative">
                 <div className="border-2 w-80 h-96 border-[#dd4dd] rounded-md -z-0 "></div>
                 <div
-                  className={`border-2  border-[#2627CF] w-80 h-96 rounded-md absolute top-6 left-6 z-10 glassbg grid ${
+                  className={`border-2  border-[#2627CF] w-80 h-96 rounded-md absolute top-6 md:top-6 md:left-6 z-10 glassbg grid ${
                     id !== "frontend" && id !== "devops"
                       ? "grid-cols-1"
                       : "grid-cols-2"

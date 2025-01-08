@@ -40,7 +40,11 @@ const TypeWriterText: React.FC<TypewriterTextProps> = ({ text }) => {
 
   return (
     <div style={{ display: "inline-block", position: "relative" }}>
-      <div ref={textRef} style={{ display: "inline", whiteSpace: "nowrap" }} />
+      <div
+        ref={textRef}
+        style={{ display: "inline", whiteSpace: "nowrap" }}
+        className="text-3xl md:text-5xl"
+      />
       <span ref={cursorRef}>|</span>
     </div>
   );

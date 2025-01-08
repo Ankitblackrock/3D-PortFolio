@@ -1,8 +1,8 @@
 import * as THREE from "three";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
-import { GLTF } from "three-stdlib";
 import { useFrame } from "@react-three/fiber";
+import { GLTF } from "three-stdlib";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -29,17 +29,20 @@ type SpaceShipProps = {
   animable: { x: number; y: number };
 } & JSX.IntrinsicElements["group"];
 
-export default function SpaceShip({ animable, ...props }: SpaceShipProps) {
+const SpaceShip = ({ animable, ...props }: SpaceShipProps) => {
   const { nodes, materials } = useGLTF(
     "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/low-poly-spaceship/model.gltf"
   ) as GLTFResult;
+
   const ref = useRef<THREE.Group>(null);
 
   useFrame(() => {
     if (ref.current) {
-      ref.current.position.x = -2 * animable.x;
-      ref.current.position.y = animable.y;
-      ref.current.rotation.y = animable.y;
+      // Interpolate position and rotation for smoother animations
+      ref.current.position.x +=
+        (animable.x * -2 - ref.current.position.x) * 0.1;
+      ref.current.position.y += (animable.y - ref.current.position.y) * 0.1;
+      ref.current.rotation.y += (animable.y - ref.current.rotation.y) * 0.1;
     }
   });
 
@@ -63,8 +66,10 @@ export default function SpaceShip({ animable, ...props }: SpaceShipProps) {
       <mesh geometry={nodes.Cube005_6.geometry} material={materials.Window} />
     </group>
   );
-}
+};
 
 useGLTF.preload(
   "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/low-poly-spaceship/model.gltf"
 );
+
+export default React.memo(SpaceShip);

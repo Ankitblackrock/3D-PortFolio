@@ -9,7 +9,29 @@
 }
 
 .primary-color {
-  color: rgb(38, 49, 207);
+  color: #3133ea;
+}
+
+.raindbow-bg {
+  background: linear-gradient(
+    90deg,
+    #40ffaa,
+    #4079ff,
+    #40ffaa,
+    #4079ff,
+    #40ffaa
+  );
+  background-size: 300%;
+  animation: gradientAnimation 5s infinite linear;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
 }
 
 .animated-bg {
@@ -51,7 +73,7 @@
   backdrop-filter: blur(13.5px);
   -webkit-backdrop-filter: blur(13.5px);
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 2px solid rgba(255, 255, 255, 0.18);
 }
 
 .contact-us-card {
@@ -77,12 +99,32 @@
 
 .infinity-scroll-animation {
   animation: scroll 20s linear infinite;
+  display: inline-block; /* Add this */
 }
 
 @keyframes scroll {
-  to {
-    transform: translateX(-40rem);
+  from {
+    transform: translateX(100%);
   }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Add wrapper class for the scrolling container */
+.scroll-wrapper {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+/* Update testimonial container styles */
+.testimonial-container {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+  will-change: transform;
 }
 
 .bounce {

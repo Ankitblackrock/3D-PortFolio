@@ -14,7 +14,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-black px-7 py-12 section-six sticky z-10">
+    <footer className="bg-black px-7 py-12 section-six sticky z-40">
       <div className="flex flex-col items-center mb-8">
         <img
           src="/images/angle-double-up.svg"
