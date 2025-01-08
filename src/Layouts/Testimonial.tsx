@@ -105,51 +105,60 @@ const TestimonialCard = ({ data }: { data: TestimonialData }) => (
 function Testimonial() {
   const testimonials = useMemo(() => testimonialData, []);
   const containerRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef<gsap.core.Timeline>();
+  const animationRef = useRef<gsap.core.Timeline>();
 
   useEffect(() => {
     if (!containerRef.current) return;
 
     const container = containerRef.current;
-    const cards = Array.from(container.children);
-    const cardWidth = (cards[0] as HTMLElement).offsetWidth;
-    const totalWidth = cardWidth * cards.length;
+    const originalCards = Array.from(container.children);
+    const cardWidth = (originalCards[0] as HTMLElement).offsetWidth + 32; // Include gap
+    const totalWidth = cardWidth * originalCards.length;
 
-    // Clone first few cards and append to end for seamless loop
-    const firstCards = cards.slice(0, 3).map((card) => card.cloneNode(true));
-    firstCards.forEach((card) => container.appendChild(card));
+    // Clone all cards for seamless loop
+    const clonedCards = originalCards.map((card) => card.cloneNode(true));
+    clonedCards.forEach((card) => container.appendChild(card));
 
-    // Set initial position
+    // Set initial container width to fit both original and cloned cards
     gsap.set(container, {
       x: 0,
-      width: totalWidth * 1.5, // Make container wider to accommodate clones
+      width: totalWidth * 2, // Double width to fit clones
     });
 
-    // Create seamless scroll animation
-    const timeline = gsap.timeline({
-      repeat: -1,
-      defaults: { ease: "none" },
-    });
+    const createInfiniteLoop = () => {
+      const tl = gsap.timeline({
+        repeat: -1,
+        defaults: { ease: "none" },
+      });
 
-    timeline.to(container, {
-      x: `-${totalWidth}px`,
-      duration: 20,
-      ease: "none",
-      onComplete: () => {
-        // Reset position when reaching end
-        gsap.set(container, { x: 0 });
-      },
-    });
+      tl.to(container, {
+        x: -totalWidth,
+        duration: 50,
+        ease: "none",
+        onComplete: () => {
+          gsap.set(container, { x: 0 });
+        },
+      });
 
-    // Pause/Resume on hover
-    container.addEventListener("mouseenter", () => timeline.pause());
-    container.addEventListener("mouseleave", () => timeline.play());
+      return tl;
+    };
 
-    scrollRef.current = timeline;
+    // Create and store the animation
+    animationRef.current = createInfiniteLoop();
+
+    // Pause/Resume controls
+    const handleMouseEnter = () => animationRef.current?.pause();
+    const handleMouseLeave = () => animationRef.current?.play();
+
+    container.addEventListener("mouseenter", handleMouseEnter);
+    container.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
-      timeline.kill();
-      scrollRef.current = undefined;
+      if (animationRef.current) {
+        animationRef.current.kill();
+      }
+      container.removeEventListener("mouseenter", handleMouseEnter);
+      container.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, [testimonials.length]);
 
@@ -158,10 +167,11 @@ function Testimonial() {
       <h1 className="text-[46px] md:text-5xl text-center font-bold primary-color mb-20">
         TESTIMONIALS.
       </h1>
-      <div className="relative w-full">
+      <div className="relative w-full overflow-hidden">
         <div
-          className="flex items-center gap-8 absolute left-0"
+          className="flex items-center gap-10"
           ref={containerRef}
+          style={{ willChange: "transform" }}
         >
           {testimonials.map((item) => (
             <TestimonialCard key={item.id} data={item} />
@@ -171,5 +181,14 @@ function Testimonial() {
     </section>
   );
 }
+
+// Add this CSS in your styles file
+// const styles = `
+// .testimonial-card {
+//   transform: translateZ(0);
+//   backface-visibility: hidden;
+//   perspective: 1000px;
+// }
+// `;
 
 export default Testimonial;

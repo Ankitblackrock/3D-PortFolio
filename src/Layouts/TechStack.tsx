@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { StackImg } from "../data/StackData";
 import useOnScrollShow from "../hooks/useOnScrollShow";
+import ReactNativeIcon from "../components/ReactNativeIcon";
 
 type StackKeys = keyof typeof StackImg;
 
@@ -22,7 +23,7 @@ function TechStack() {
   );
 
   return (
-    <section className="dark-bg py-16 px-7 z-20 section-two">
+    <section className="dark-bg py-16 px-12 z-20 section-two">
       <h2 className="text-5xl text-center font-bold primary-color">SKILLS.</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-8 gap-6">
         {["frontend", "backend", "languages", "devops", "mobile"].map(
@@ -47,7 +48,16 @@ function TechStack() {
                 >
                   {(StackImg[id as StackKeys] || []).map((item, itemIndex) => (
                     <div className="flex items-center" key={itemIndex}>
-                      <img src={item.imgsrc} alt={item.name} width={45} />
+                      {item.name === "React Native" ? (
+                        <ReactNativeIcon color="white" />
+                      ) : (
+                        <img
+                          src={item.imgsrc}
+                          alt={item.name}
+                          width={45}
+                          loading="lazy"
+                        />
+                      )}
                       <span className="text-white">{item.name}</span>
                     </div>
                   ))}

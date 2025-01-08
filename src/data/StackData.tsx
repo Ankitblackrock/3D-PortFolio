@@ -33,6 +33,9 @@ export const StackImg = {
     { name: "VS Code", imgsrc: "/images/techImg/vscode.png" },
   ],
   mobile: [
-    // Add mobile development technologies here if applicable
+    {
+      name: "React Native",
+      imgsrc: "/images/techImg/react-native.svg",
+    },
   ],
 };

@@ -1,3 +1,19 @@
+/* Import the custom font */
+@font-face {
+  font-family: "SpaceGrotesk";
+  src: url("../public/fonts/SpaceGrotesk-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "LexendDeca";
+  src: url("../public/fonts/LexendDeca-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   margin: 0 auto;
   padding: 0;
@@ -74,6 +90,9 @@
   -webkit-backdrop-filter: blur(13.5px);
   border-radius: 10px;
   border: 2px solid rgba(255, 255, 255, 0.18);
+  /* transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px; */
 }
 
 .contact-us-card {
@@ -125,6 +144,19 @@
   gap: 2rem;
   padding: 1rem;
   will-change: transform;
+}
+
+p,
+span {
+  font-family: "SpaceGrotesk", sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "LexendDeca", sans-serif;
 }
 
 .bounce {

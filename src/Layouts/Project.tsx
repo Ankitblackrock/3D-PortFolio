@@ -58,12 +58,7 @@ export const ProjectMapComp = () => {
               <h3 className="text-white text-4xl font-normal mt-8">
                 {item.title}
               </h3>
-              <p className="text-white text-base">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quibusdam perspiciatis quod quas quisquam velit, tempore sed
-                error nobis voluptatem, ut corporis veritatis dolorum! Saepe
-                molestias consequatur commodi, omnis tenetur aspernatur?
-              </p>
+              <p className="text-white text-base">{item.description}</p>
               <a href={item.link} className="m-0">
                 <img src="/images/techImg/github.png" width={40} />
               </a>

@@ -26,7 +26,7 @@ type GLTFResult = GLTF & {
 };
 
 type SpaceShipProps = {
-  animable: { x: number; y: number };
+  animable: { x: number; y: number; rotation: number };
 } & JSX.IntrinsicElements["group"];
 
 const SpaceShip = ({ animable, ...props }: SpaceShipProps) => {
@@ -42,7 +42,8 @@ const SpaceShip = ({ animable, ...props }: SpaceShipProps) => {
       ref.current.position.x +=
         (animable.x * -2 - ref.current.position.x) * 0.1;
       ref.current.position.y += (animable.y - ref.current.position.y) * 0.1;
-      ref.current.rotation.y += (animable.y - ref.current.rotation.y) * 0.1;
+      ref.current.rotation.y +=
+        (animable.rotation - ref.current.rotation.y) * 0.1;
     }
   });
 

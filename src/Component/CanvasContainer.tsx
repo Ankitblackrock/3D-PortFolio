@@ -13,7 +13,7 @@ const CanvasContainer = ({
   mainRef: HTMLElement | null | undefined;
 }) => {
   const isMobile = window.innerWidth < 768;
-  const animable = { x: 0, y: 0 };
+  const animable = { x: 0, y: 0, rotation: 0 };
 
   const [cameraSettings, setCameraSettings] = useState({
     position: isMobile ? [25, 10, 15] : ([10, 5, 10] as any),
@@ -64,7 +64,7 @@ const CanvasContainer = ({
           scrollTrigger: {
             trigger: mainRef,
             start: "top top",
-            end: "bottom bottom",
+            end: "bottom center", // Stop at the center of section-four
             scrub: 0.5, // Smooth progress, scrub factor adjusted
             invalidateOnRefresh: true, // Recalculate on refresh
           },
@@ -80,10 +80,20 @@ const CanvasContainer = ({
 
         // Animate each section
         sections.forEach((_, index) => {
-          timeline.to(animable, {
-            x: index % 2 === 0 ? -60 : 20,
-            y: index % 2 === 0 ? 0 : 0.9,
-          });
+          if (index === sections.length - 1) {
+            // Center the object and rotate 45 degrees towards the camera at section-four
+            timeline.to(animable, {
+              x: 0,
+              y: 0,
+              rotation: Math.PI / 4,
+            });
+          } else {
+            timeline.to(animable, {
+              x: index % 2 === 0 ? -60 : 20,
+              y: index % 2 === 0 ? 0.3 : 0.9,
+              rotation: 0,
+            });
+          }
         });
       };
 
