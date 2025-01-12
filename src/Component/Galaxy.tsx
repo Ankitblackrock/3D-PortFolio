@@ -1,5 +1,6 @@
-import { useRef, useMemo, useState, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
+import { useRef, useMemo, useState, useEffect } from "react";
+// import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 // Galaxy component that includes two galaxies
@@ -7,7 +8,7 @@ const Galaxy = () => {
   const pointsRef1 = useRef<THREE.Points>(null); // Reference for first points object
   const pointsRef2 = useRef<THREE.Points>(null); // Reference for new galaxy points object
 
-  const [mouseX, setMouseX] = useState(10); // State to track horizontal mouse position
+  // const [mouseX, setMouseX] = useState(10); // State to track horizontal mouse position
   const [scale, setScale] = useState<number>(1);
 
   const parameters = {
@@ -103,14 +104,14 @@ const Galaxy = () => {
 
   // Mouse movement tilt logic
   useFrame(() => {
-    const tiltFactor = mouseX * 0.5; // Adjust tilt sensitivity
+    // const tiltFactor = mouseX * 0.5; // Adjust tilt sensitivity
     if (pointsRef1.current) {
       pointsRef1.current.rotation.y += 0.005;
-      pointsRef1.current.rotation.x = tiltFactor; // Horizontal tilt
+      // pointsRef1.current.rotation.x = tiltFactor; // Horizontal tilt
     }
     if (pointsRef2.current) {
       pointsRef2.current.rotation.y += 0.005;
-      pointsRef2.current.rotation.x = tiltFactor; // Horizontal tilt
+      // pointsRef2.current.rotation.x = tiltFactor; // Horizontal tilt
     }
   });
 
@@ -123,17 +124,17 @@ const Galaxy = () => {
       }
     };
 
-    const handleMouseMove = (event: MouseEvent) => {
-      const normalizedX = (event.clientX / window.innerWidth) * 2 - 1;
-      setMouseX(normalizedX); // Update mouse X position
-    };
+    // const handleMouseMove = (event: MouseEvent) => {
+    //   const normalizedX = (event.clientX / window.innerWidth) * 2 - 1;
+    //   setMouseX(normalizedX); // Update mouse X position
+    // };
 
     window.addEventListener("wheel", handleScroll);
-    window.addEventListener("mousemove", handleMouseMove);
+    // window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       window.removeEventListener("wheel", handleScroll);
-      window.removeEventListener("mousemove", handleMouseMove);
+      // window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 

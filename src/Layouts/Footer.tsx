@@ -14,7 +14,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-black px-7 py-12 section-six sticky z-10">
+    <footer className="bg-black px-7 py-12 section-six sticky z-40">
       <div className="flex flex-col items-center mb-8">
         <img
           src="/images/angle-double-up.svg"
@@ -25,7 +25,7 @@ const Footer = () => {
         />
         <h3 className="text-white text-2xl font-semibold">Scroll To Top</h3>
       </div>
-      <div className="flex items-center w-1/2">
+      <div className="flex items-center w-1/2 mt-12 px-20">
         <a href="/" className="cursor-pointer">
           <img src="/images/social/github.svg" alt="github" width={30} />
         </a>

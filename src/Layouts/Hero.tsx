@@ -112,20 +112,19 @@ const Hero = () => {
     const boxTimeline = gsap.timeline();
     const hiTimeline = gsap.timeline();
 
-    boxTimeline
-      .to("#box", {
-        duration: 1,
-        width: "25vw",
-        delay: 1,
-        ease: "power4.inOut",
-      })
-      .to("#box", {
-        duration: 2,
-        autoAlpha: 0.7,
-        yoyo: true,
-        repeat: -1,
-        ease: "rough({ template: none.out, strength:  1, points: 20, taper: 'none', randomize: true, clamp: false})",
-      });
+    boxTimeline.to("#box", {
+      duration: 1,
+      width: "25vw",
+      delay: 1,
+      ease: "power4.inOut",
+    });
+    // .to("#box", {
+    //   duration: 2,
+    //   autoAlpha: 0.7,
+    //   yoyo: true,
+    //   repeat: -1,
+    //   ease: "rough({ template: none.out, strength:  1, points: 20, taper: 'none', randomize: true, clamp: false})",
+    // });
 
     hiTimeline
       .from("#hi", {
@@ -148,10 +147,10 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="bg-black w-full h-[100vh] relative  flex flex-col justify-center items-start hero-section">
+    <section className="bg-black w-full h-[100vh] relative  flex flex-col justify-center items-start hero-section z-20">
       <div className="absolute top-0 w-full h-full">
         {" "}
-        <div className="grid grid-cols-2 absolute top-48 left-0 w-full z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 absolute top-48 left-0 w-full z-10">
           <div
             className="text-white text-[60px] mx-0 font-bold p-6 mb-4"
             id="hi"

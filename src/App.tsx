@@ -1,34 +1,32 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
-import CanvasContainer from "./Component/CanvasContainer";
-import About from "./Layouts/About";
-import Hero from "./Layouts/Hero";
-import Testimonial from "./Layouts/Testimonial";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import TechStack from "./Layouts/TechStack";
-import Project from "./Layouts/Project";
-import ContactUs from "./Layouts/ContactUs";
-import Footer from "./Layouts/Footer";
 import LocomotiveScroll from "locomotive-scroll";
+import Header from "./Layouts/Header";
+
+// Dynamic imports for components
+const Hero = React.lazy(() => import("./Layouts/Hero"));
+const About = React.lazy(() => import("./Layouts/About"));
+const TechStack = React.lazy(() => import("./Layouts/TechStack"));
+const Project = React.lazy(() => import("./Layouts/Project"));
+const Testimonial = React.lazy(() => import("./Layouts/Testimonial"));
+const ContactUs = React.lazy(() => import("./Layouts/ContactUs"));
+const Footer = React.lazy(() => import("./Layouts/Footer"));
+const CanvasContainer = React.lazy(() => import("./Component/CanvasContainer"));
 
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
-  const [main, setMain] = useState<HTMLElement | null>();
+  const [main, setMain] = useState<HTMLElement | null>(null);
   const ref = useRef<HTMLElement | null>(null);
-  const pageRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (ref.current) {
-      setMain(ref.current.children[1] as HTMLElement | null);
-    }
-  }, [main]);
+  // const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (ref.current) {
-      setMain(ref.current.children[1] as HTMLElement | null);
+      setMain(ref.current.children[1] as HTMLElement | null); // Assuming the 2nd child is your main content
     }
-  }, [main]);
+  }, []);
 
   useEffect(() => {
     const scrollDiv = document.querySelector<HTMLElement>(".scroll_contain");
@@ -55,9 +53,11 @@ function App() {
     // Setup GSAP ScrollTrigger proxy
     ScrollTrigger.scrollerProxy(scrollDiv, {
       scrollTop(value?: number) {
-        return value !== undefined
-          ? locomotive.scrollTo(value, { duration: 0 })
-          : locomotive.lenisInstance?.scroll || 0;
+        if (value !== undefined) {
+          locomotive.scrollTo(value, { duration: 0 });
+        } else {
+          return locomotive.lenisInstance?.scroll || 0;
+        }
       },
       getBoundingClientRect() {
         return {
@@ -67,22 +67,27 @@ function App() {
           height: window.innerHeight,
         };
       },
+      pinType: scrollDiv.style.transform ? "transform" : "fixed",
     });
 
-    // Refresh GSAP and Locomotive Scroll
+    // Update GSAP and Locomotive Scroll
+    locomotive.start(); // Starts RAF and Lenis smooth scrolling
+    locomotive.lenisInstance.on("scroll", () => ScrollTrigger.update());
+
     ScrollTrigger.addEventListener("refresh", () => locomotive.resize());
     ScrollTrigger.refresh();
 
     return () => {
-      // Cleanup
       locomotive.destroy();
       ScrollTrigger.removeEventListener("refresh", () => locomotive.resize());
     };
   }, []);
+
   return (
-    <main className="scroll_contain" ref={ref}>
-      <CanvasContainer mainRef={main} />
-      <div ref={pageRef}>
+    <main className="scroll_contain flex-1" ref={ref}>
+      <CanvasContainer mainRef={main} /> {/* Pass mainRef to CanvasContainer */}
+      <div className="max-w-7xl  mx-auto relative overflow-hidden">
+        <Header />
         <Hero />
         <About />
         <TechStack />

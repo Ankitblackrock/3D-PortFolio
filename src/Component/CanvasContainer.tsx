@@ -1,126 +1,138 @@
 import { Canvas } from "@react-three/fiber";
-import ErrorBoundary from "../ErrorBoundary";
-import { Suspense, useLayoutEffect, useState, useEffect } from "react";
-import { OrbitControls, Stage } from "@react-three/drei";
+import React, { Suspense, useState, useEffect, useLayoutEffect } from "react";
+import { Stage } from "@react-three/drei";
 import SpaceShip from "./SpaceShip";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const CanvasContainer = ({
   mainRef,
 }: {
   mainRef: HTMLElement | null | undefined;
 }) => {
-  const animable = {
-    x: 0,
-    y: 0,
-    zoom: 1,
-  };
+  const isMobile = window.innerWidth < 768;
+  const animable = { x: 0, y: 0, rotation: 0 };
 
-  // Define state for responsive camera settings
   const [cameraSettings, setCameraSettings] = useState({
-    position: [10, 5, 10] as [number, number, number],
-    fov: 50,
-    dpr: [1, 2] as [number, number],
+    position: isMobile ? [25, 10, 15] : ([10, 5, 10] as any),
+    fov: isMobile ? 60 : 50,
+    dpr: isMobile ? [1, 1.5] : ([1, 2] as any),
   });
 
-  // Update responsive settings based on screen size
+  const updateResponsiveSettings = () => {
+    if (window.innerWidth < 576) {
+      setCameraSettings({ position: [25, 9, 16], fov: 60, dpr: [1, 1.5] });
+    } else if (window.innerWidth < 768) {
+      setCameraSettings({ position: [13, 7, 12], fov: 55, dpr: [1, 2] });
+    } else {
+      setCameraSettings({ position: [10, 5, 10], fov: 50, dpr: [1, 2] });
+    }
+  };
+
   useEffect(() => {
-    const updateResponsiveSettings = () => {
-      if (window.innerWidth < 576) {
-        // Extra small devices (mobile)
-        setCameraSettings({
-          position: [25, 9, 16], // Farther back to fit content
-          fov: 60, // Wider field of view
-          dpr: [1, 1.5], // Reduce resolution for performance
-        });
-      } else if (window.innerWidth < 768) {
-        // Small devices (larger mobiles/tablets)
-        setCameraSettings({
-          position: [13, 7, 12], // Slightly closer
-          fov: 55,
-          dpr: [1, 2],
-        });
-      } else if (window.innerWidth < 1024) {
-        // Medium devices (tablets)
-        setCameraSettings({
-          position: [12, 6, 10], // Default position
-          fov: 50,
-          dpr: [1, 2],
-        });
-      } else {
-        // Large devices (desktops)
-        setCameraSettings({
-          position: [10, 5, 10],
-          fov: 50,
-          dpr: [1, 2],
-        });
-      }
-    };
-
-    updateResponsiveSettings(); // Initial settings on load
-    window.addEventListener("resize", updateResponsiveSettings);
-
-    return () => window.removeEventListener("resize", updateResponsiveSettings);
+    updateResponsiveSettings();
+    const handleResize = () => updateResponsiveSettings();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // GSAP animations for scroll-triggered motion
+  // Throttle function outside the useLayoutEffect to avoid recreation on every render
+  const throttle = <T extends (...args: any[]) => void>(
+    func: T,
+    delay: number
+  ): T => {
+    let lastCall = 0;
+    return ((...args: Parameters<T>) => {
+      const now = new Date().getTime();
+      if (now - lastCall >= delay) {
+        lastCall = now;
+        func(...args);
+      }
+    }) as T;
+  };
+
   useLayoutEffect(() => {
     if (mainRef) {
-      const sections = [
-        ".section-one",
-        ".section-two",
-        ".section-three",
-        ".section-four",
-        ".section-five",
-        ".section-six",
-      ];
+      const setupScrollAnimation = () => {
+        // Clear any existing ScrollTriggers
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: mainRef,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 0.5,
-        },
-      });
-
-      sections.forEach((_, index) => {
-        const direction = index % 2 === 0 ? -60 : 20;
-        const yDirection = index % 2 === 0 ? 0 : 0.9;
-        timeline.to(animable, {
-          x: direction,
-          y: yDirection,
+        // Create a new GSAP timeline with ScrollTrigger
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: mainRef,
+            start: "top top",
+            end: "bottom center", // Stop at the center of section-four
+            scrub: 0.5, // Smooth progress, scrub factor adjusted
+            invalidateOnRefresh: true, // Recalculate on refresh
+          },
         });
-      });
+
+        const sections = [
+          ".section-one",
+          ".section-two",
+          ".section-three",
+          ".section-four",
+          ".section-five",
+        ];
+
+        // Animate each section
+        sections.forEach((_, index) => {
+          if (index === sections.length - 1) {
+            // Center the object and rotate 45 degrees towards the camera at section-four
+            timeline.to(animable, {
+              x: 0,
+              y: 0,
+              rotation: Math.PI / 4,
+            });
+          } else {
+            timeline.to(animable, {
+              x: index % 2 === 0 ? -60 : 20,
+              y: index % 2 === 0 ? 0.3 : 0.9,
+              rotation: 0,
+            });
+          }
+        });
+      };
+
+      // Throttled initialization to prevent excessive calls
+      const throttledScrollTrigger = throttle(setupScrollAnimation, 2000); // Slightly higher throttle time for better performance
+
+      // Initialize scroll animation
+      throttledScrollTrigger();
+
+      // Refresh ScrollTrigger once the DOM is ready
+      ScrollTrigger.refresh();
+
+      // Cleanup on unmount
+      return () => {
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      };
     }
   }, [mainRef]);
 
   return (
-    <div className="h-screen w-full fixed top-0 z-0">
-      <ErrorBoundary>
-        <Canvas
-          shadows
-          dpr={cameraSettings.dpr} // Dynamically adjust device pixel ratio
-          camera={{
-            position: cameraSettings.position, // Responsive camera position
-            fov: cameraSettings.fov, // Responsive field of view
-          }}
-          style={{ touchAction: "auto" }}
-        >
-          <Suspense fallback={null}>
-            <Stage preset="rembrandt" intensity={2} environment="park">
-              <SpaceShip animable={animable} />
-            </Stage>
-          </Suspense>
-          <OrbitControls
-            enablePan={false}
-            enableRotate={false}
-            enableZoom={false}
-          />
-        </Canvas>
-      </ErrorBoundary>
+    <div className="h-screen w-full fixed top-0 z-10">
+      <Canvas
+        shadows
+        dpr={cameraSettings.dpr}
+        camera={{ position: cameraSettings.position, fov: cameraSettings.fov }}
+      >
+        <Suspense fallback={null}>
+          <Stage
+            preset="rembrandt"
+            intensity={1.5}
+            shadows={window.innerWidth >= 576} // Disable shadows for small screens
+            environment="park"
+          >
+            <SpaceShip animable={animable} />
+          </Stage>
+        </Suspense>
+      </Canvas>
     </div>
   );
 };
 
-export default CanvasContainer;
+export default React.memo(CanvasContainer);

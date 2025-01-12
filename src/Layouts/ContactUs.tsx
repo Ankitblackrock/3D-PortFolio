@@ -27,11 +27,11 @@ const ContactUs = () => {
   };
 
   return (
-    <section className="dark-bg z-10 px-7 py-12 section-five">
-      <h1 className="text-4xl font-bold primary-color text-center mb-8">
+    <section className="dark-bg  px-7 py-12 section-five">
+      <h1 className="text-5xl text-center font-bold primary-color mb-8">
         CONTACT.
       </h1>
-      <div className="contact-us-card w-full md:w-[30rem] p-8 h-[36rem] flex flex-col items-center justify-center">
+      <div className="contact-us-card w-full md:w-[30rem] p-8 h-[36rem] flex flex-col items-center justify-center relative z-20">
         {sucess ? (
           <img src="/images/Animation.gif" alt="right" width={200} />
         ) : (
@@ -79,7 +79,7 @@ const ContactUs = () => {
               </div>
               <button
                 type="submit"
-                className="bg-[#01792e] rounded-md border-2 border-green-900 w-full text-white text-xl font-bold p-2 mt-4"
+                className="raindbow-bg rounded-md border-2 border-green-900 w-full text-[#3b3838] text-xl font-bold p-2 mt-4"
               >
                 SEND
               </button>
