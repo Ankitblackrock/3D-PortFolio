@@ -164,7 +164,7 @@ function Testimonial() {
 
   return (
     <section className="third-section dark-bg z-10 px-7 py-12 section-four relative overflow-hidden h-[37rem]">
-      <h1 className="text-[46px] md:text-5xl text-center font-bold primary-color mb-20">
+      <h1 className="text-[40px] sm:text-[46px] md:text-5xl text-center font-bold primary-color mb-20">
         TESTIMONIALS.
       </h1>
       <div className="relative w-full overflow-hidden">

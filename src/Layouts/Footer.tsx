@@ -25,7 +25,7 @@ const Footer = () => {
         />
         <h3 className="text-white text-2xl font-semibold">Scroll To Top</h3>
       </div>
-      <div className="flex items-center w-1/2">
+      <div className="flex items-center w-1/2 mt-12 px-20">
         <a href="/" className="cursor-pointer">
           <img src="/images/social/github.svg" alt="github" width={30} />
         </a>

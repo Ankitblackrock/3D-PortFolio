@@ -20,13 +20,20 @@ const About = () => {
       scrub: 2,
     }
   );
+
+  const handleDownloadCV = () => {
+    const link = document.createElement("a");
+    link.href = "/public/doc/Ankit_Chowdhury_React_Developer_Resume.pdf";
+    link.download = "Ankit_Chowdhury_React_Developer_Resume.pdf";
+    link.click();
+  };
   return (
     <section
-      className="w-full z-50 px-11 py-14 dark-bg section-one"
+      className="w-full z-50 px-2 md:px-11 py-14 dark-bg section-one"
       id="section-one"
     >
       <h2 className="text-5xl text-center font-bold primary-color">ABOUT.</h2>
-      <div className="grid grid-cols-1 gap-8 md:gap-0 md:grid-cols-2 mt-12 items-center relative overflow-hidden p-6">
+      <div className="grid grid-cols-1 gap-20 md:gap-0 md:grid-cols-2 mt-12 items-center relative overflow-hidden p-6">
         <div className="relative">
           <div className="border-2  border-[#2627CF] w-[250px] absolute right-[24px] bottom-[21px] h-[21rem] z-10 glassbg rounded-md" />
           <img
@@ -43,20 +50,23 @@ const About = () => {
             width={25}
             className="float-left"
           />
-          <p className="text-white font-medium text-base mt-8">
-            I am a Front-End Developer with extensive experience in designing
-            and building web and mobile applications using React.js, Next.js,
-            and React Native. Proficient in JavaScript, TypeScript, HTML5, CSS,
-            and modern frameworks like Tailwind and SASS, I specialize in
-            creating responsive, high-performance user interfaces. My expertise
-            also includes state management with Redux, API integration, unit
-            testing with Jest, and optimizing web performance. I have a strong
-            understanding of Agile methodologies, working collaboratively with
-            cross-functional teams to deliver quality solutions. With a
-            background in both e-commerce and interactive web applications, I am
-            committed to delivering innovative and scalable solutions that
-            enhance user experiences.
+          <p className="text-white font-medium text-sm md:text-base mt-8">
+            Front-End Developer with expertise in React.js, Next.js, and React
+            Native, specializing in building responsive, high-performance user
+            interfaces. Proficient in JavaScript, TypeScript, HTML5, CSS,
+            Tailwind, and SASS, with skills in Redux state management, API
+            integration, and unit testing. Experienced in Agile workflows and
+            collaborating with cross-functional teams to deliver scalable,
+            innovative solutions. Background in e-commerce and interactive web
+            applications, focused on enhancing user experiences and optimizing
+            web and mobile performance.
           </p>
+          <div
+            className="border border-white bg-[#bababa] w-36 p-3 text-center mt-4 float-left font-semibold text-[#303030] cursor-pointer rounded-sm active:bg-[#303030] active:text-[#bababa]"
+            onClick={handleDownloadCV}
+          >
+            Download CV
+          </div>
         </div>
       </div>
     </section>

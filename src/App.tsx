@@ -3,6 +3,7 @@ import "./App.css";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import LocomotiveScroll from "locomotive-scroll";
+import Header from "./Layouts/Header";
 
 // Dynamic imports for components
 const Hero = React.lazy(() => import("./Layouts/Hero"));
@@ -19,6 +20,7 @@ gsap.registerPlugin(ScrollTrigger);
 function App() {
   const [main, setMain] = useState<HTMLElement | null>(null);
   const ref = useRef<HTMLElement | null>(null);
+  // const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (ref.current) {
@@ -85,6 +87,7 @@ function App() {
     <main className="scroll_contain flex-1" ref={ref}>
       <CanvasContainer mainRef={main} /> {/* Pass mainRef to CanvasContainer */}
       <div className="max-w-7xl  mx-auto relative overflow-hidden">
+        <Header />
         <Hero />
         <About />
         <TechStack />
